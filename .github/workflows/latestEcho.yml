@@ -1,4 +1,4 @@
-name: Latest Clouddriver
+name: Latest Echo
 
 on:
   schedule:
@@ -14,7 +14,7 @@ jobs:
       - name: get dependency name to update
         id: dependency_name
         run: |
-          echo ::set-output name=dependency::clouddriver
+          echo ::set-output name=dependency::echo
       - name: get current version
         id: get_current
         run: |
