@@ -1,3 +1,7 @@
+![CI](https://github.com/spinnaker-plugin-examples/pf4jStagePlugin/workflows/CI/badge.svg)
+![Latest Kork](https://github.com/spinnaker-plugin-examples/pf4jStagePlugin/workflows/Latest%20Kork/badge.svg?branch=master)
+![Latest Echo](https://github.com/spinnaker-plugin-examples/pf4jStagePlugin/workflows/Latest%20Echo/badge.svg?branch=master)
+
 ## Notification Agent Plugin
 
 Spinnaker has a set of built-in types (e.g., Slack, email, SMS)
