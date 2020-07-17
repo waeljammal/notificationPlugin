@@ -32,3 +32,10 @@ spinnaker:
 This plugin allows a developer to extend the `NotificationAgent` interface in
 `Echo`. This interface handles most pipeline notifications. However, it does not handle notifications 
 configured in Manual Judgment stages.
+
+## Future work
+
+We're planning on adding a method to the `NotificationAgent` interface that
+would allow developers to define a set of parameters needed for the plugin
+(e.g., the Slack channel where the notification should be sent). Form fields
+for defining these parameters would be automatically generated in Spinnaker's UI.
