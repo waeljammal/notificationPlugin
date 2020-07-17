@@ -5,7 +5,8 @@ for pipeline notifications.
 
 This plugin adds a new HTTP notification type as an example for plugin 
 developers to modify and extend as they create integrations with their own 
-notification systems. It's not meant for production use.
+notification systems. It's not meant for production use. It's meant for you
+to copy as a starting point for creating your own notification plugin!
 
 ## Configuration
 
