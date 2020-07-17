@@ -28,12 +28,12 @@ class HTTPNotificationAgent(config: HTTPNotificationConfig, pluginSdks: PluginSd
 
   override fun getNotificationType() = "http"
 
-  override fun sendNotifications(notification: MutableMap<String, Any>, application: String, event: Event, config: MutableMap<String, String>, status: String) {
-    val nc = notification.toNotificationConfig()
+  override fun sendNotifications(notification: MutableMap<String, Any>, application: String, event: Event, status: String) {
+    val nc = notification.asNotificationConfig()
     client.post(Request(AGENT_NAME, nc.path ?: "").setBody(event))
   }
 
-  private fun MutableMap<String, Any>.toNotificationConfig() = mapper.convertValue<NotificationConfig>(this)
+  private fun MutableMap<String, Any>.asNotificationConfig() = mapper.convertValue<NotificationConfig>(this)
 }
 
 data class NotificationConfig(val path: String?)
