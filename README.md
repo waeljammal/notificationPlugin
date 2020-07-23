@@ -1,6 +1,6 @@
 ![CI](https://github.com/spinnaker-plugin-examples/notificationPlugin/workflows/CI/badge.svg)
 ![Latest Kork](https://github.com/spinnaker-plugin-examples/notificationPlugin/workflows/Latest%20Kork/badge.svg?branch=master)
-![Latest Echo](https://github.com/spinnaker-plugin-examples/notificationPlugin/workflows/Latest%20Echo/badge.svg)
+![Latest Echo](https://github.com/spinnaker-plugin-examples/notificationPlugin/workflows/Latest%20Echo/badge.svg?branch=master)
 
 ## Notification Agent Plugin
 
@@ -14,7 +14,10 @@ to copy as a starting point for creating your own notification plugin!
 
 ## Configuration
 
-```
+To install and configure this plugin you'll need to include this snippet in
+your Spinnaker config:
+
+```yaml
 spinnaker:
   extensibility:
     plugins:
@@ -25,6 +28,26 @@ spinnaker:
             enabled: true
             config:
               url: <fill-me-in>
+```
+
+This snippet ultimately needs to be accessible by Echo. 
+Your exact path for configuring this plugin depends on the Spinnaker configuration
+tool you're using (Halyard, the operator, Kleat, etc.). 
+Please see the plugin installation guides on [spinnaker.io](https://spinnaker.io/guides/user/plugins). 
+
+You'll also need to include the following snippet inside Deck's `settings.js`:
+
+```js
+window.spinnakerSettings = {
+  ...
+  notifications: {
+    http: { // The key here is defined in the plugin UI code.
+      enabled: true,
+    },
+    ...
+  },
+  ...
+};
 ```
 
 ## Known bugs
