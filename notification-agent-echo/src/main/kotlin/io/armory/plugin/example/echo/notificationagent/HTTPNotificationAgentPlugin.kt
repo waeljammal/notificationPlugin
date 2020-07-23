@@ -26,6 +26,10 @@ class HTTPNotificationAgent(config: HTTPNotificationConfig, pluginSdks: PluginSd
     client = pluginSdks.http().get(AGENT_NAME)
   }
 
+  /**
+   * This type must match the "key" defined in the plugin UI code:
+   * https://github.com/spinnaker-plugin-examples/notificationPlugin/blob/master/notification-agent-deck/src/index.ts#L8
+   */
   override fun getNotificationType() = "http"
 
   override fun sendNotifications(notification: MutableMap<String, Any>, application: String, event: Event, status: String) {
