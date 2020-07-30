@@ -5,6 +5,7 @@ import com.fasterxml.jackson.module.kotlin.convertValue
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.netflix.spinnaker.echo.api.events.Event
 import com.netflix.spinnaker.echo.api.events.NotificationAgent
+import com.netflix.spinnaker.echo.api.events.NotificationParameter
 import com.netflix.spinnaker.kork.plugins.api.PluginSdks
 import com.netflix.spinnaker.kork.plugins.api.httpclient.HttpClient
 import com.netflix.spinnaker.kork.plugins.api.httpclient.HttpClientConfig
@@ -35,6 +36,16 @@ class HTTPNotificationAgent(config: HTTPNotificationConfig, pluginSdks: PluginSd
   override fun sendNotifications(notification: MutableMap<String, Any>, application: String, event: Event, status: String) {
     val nc = notification.asNotificationConfig()
     client.post(Request(AGENT_NAME, nc.path ?: "").setBody(event))
+  }
+
+  override fun getParameters(): MutableList<NotificationParameter> {
+    return mutableListOf(NotificationParameter().apply {
+      name = "path"
+      label = "URL path"
+      description = "Additional path to be appended to the HTTP URL when this notification is sent"
+      type = NotificationParameter.ParameterType.string
+      defaultValue = ""
+    })
   }
 
   private fun MutableMap<String, Any>.asNotificationConfig() = mapper.convertValue<NotificationConfig>(this)
