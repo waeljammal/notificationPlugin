@@ -6,7 +6,7 @@ pluginManagement {
   }
 }
 
-rootProject.name="notificationAgent"
+rootProject.name="notificationPlugin"
 
 include "notification-agent-echo"
 
