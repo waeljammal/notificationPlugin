@@ -42,6 +42,9 @@ spinnaker:
             enabled: true
             config:
               url: <fill-me-in>
+    repositories:
+      examplePluginRepository:
+        url: https://raw.githubusercontent.com/spinnaker-plugin-examples/examplePluginRepository/master/repositories.json
 ```
 
 This snippet needs to be accessible by Echo. 
