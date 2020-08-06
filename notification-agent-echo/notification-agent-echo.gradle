@@ -35,14 +35,15 @@ dependencies {
 
   testImplementation "com.netflix.spinnaker.echo:echo-web:${echoVersion}"
   testImplementation "com.netflix.spinnaker.echo:echo-api:${echoVersion}"
+  testImplementation "com.netflix.spinnaker.echo:echo-core:${echoVersion}"
   testImplementation "com.netflix.spinnaker.kork:kork-plugins-tck:${korkVersion}"
   testImplementation "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
 
   testImplementation "io.strikt:strikt-core:0.22.1"
   testImplementation "dev.minutest:minutest:1.10.0"
   testImplementation "javax.servlet:javax.servlet-api:4.0.1"
-//  testImplementation "com.squareup.okhttp:mockwebserver:2.7.0"
-//  testImplementation "org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE"
+  testImplementation "com.squareup.okhttp:mockwebserver:2.7.0"
+  testImplementation "org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE"
 
   testRuntime "org.junit.jupiter:junit-jupiter-engine:5.4.0"
   testRuntime "org.junit.platform:junit-platform-launcher:1.4.0"
