@@ -14,7 +14,7 @@ import strikt.assertions.isNotNull
 
 class HTTPNotificationAgentIntegrationTest : PluginsTck<EchoPluginsFixture>() {
   fun tests() = rootContext<EchoPluginsFixture> {
-    context("an echo integration test environment and an echo plugin") {
+    context("an echo integration test environment") {
       serviceFixture {
         EchoPluginsFixture()
       }
