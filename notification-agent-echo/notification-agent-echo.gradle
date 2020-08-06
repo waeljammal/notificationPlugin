@@ -8,7 +8,6 @@ buildscript {
 }
 
 apply plugin: "io.spinnaker.plugin.service-extension"
-apply plugin: "maven-publish"
 apply plugin: "kotlin"
 apply plugin: "kotlin-kapt"
 apply plugin: "kotlin-spring"
@@ -17,7 +16,6 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-  mavenLocal()
   mavenCentral()
   jcenter()
   maven { url "http://dl.bintray.com/spinnaker/spinnaker/" }
@@ -29,25 +27,25 @@ spinnakerPlugin {
 }
 
 dependencies {
-  compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
-  compileOnly group: "com.netflix.spinnaker.kork", name: "kork-plugins", version: "${korkVersion}"
-  compileOnly group: 'com.netflix.spinnaker.echo', name: 'echo-api', version: "${echoVersion}"
-  compileOnly group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.8'
-  kapt(group: 'org.pf4j', name: 'pf4j', version: "${pf4jVersion}")
+  compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+  compileOnly "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
+  compileOnly "com.netflix.spinnaker.echo:echo-api:${echoVersion}"
 
-  testImplementation(group: "com.netflix.spinnaker.kork", name: "kork-plugins", version: "${korkVersion}")
-  testImplementation(group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: '2.9.8')
+  implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
 
+  testImplementation "com.netflix.spinnaker.echo:echo-web:${echoVersion}"
+  testImplementation "com.netflix.spinnaker.echo:echo-api:${echoVersion}"
   testImplementation "com.netflix.spinnaker.kork:kork-plugins-tck:${korkVersion}"
-  testImplementation("javax.servlet:javax.servlet-api:4.0.1")
+  testImplementation "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
 
-  testImplementation(group: "org.junit.jupiter", name: "junit-jupiter-api", version: "5.3.1")
-  testImplementation(group: "io.strikt", name: "strikt-core", version: "0.26.1")
-  testImplementation(group: "dev.minutest", name: "minutest", version: "1.10.0")
-  testImplementation(group: "io.mockk", name: "mockk", version: "1.10.0")
+  testImplementation "io.strikt:strikt-core:0.22.1"
+  testImplementation "dev.minutest:minutest:1.10.0"
+  testImplementation "javax.servlet:javax.servlet-api:4.0.1"
+//  testImplementation "com.squareup.okhttp:mockwebserver:2.7.0"
+//  testImplementation "org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE"
 
-  testRuntime(group: "org.junit.jupiter", name: "junit-jupiter-engine", version: "5.3.2")
-  testRuntime(group: "org.junit.platform", name: "junit-platform-launcher", version: "1.3.2")
+  testRuntime "org.junit.jupiter:junit-jupiter-engine:5.4.0"
+  testRuntime "org.junit.platform:junit-platform-launcher:1.4.0"
 }
 
 compileKotlin {
@@ -63,7 +61,6 @@ compileTestKotlin {
     jvmTarget = "1.8"
   }
 }
-
 
 tasks.withType(Test) {
   useJUnitPlatform()

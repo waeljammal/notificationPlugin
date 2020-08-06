@@ -34,15 +34,13 @@ class HTTPNotificationAgent(config: HTTPNotificationConfig, pluginSdks: PluginSd
     client.post(Request(AGENT_NAME, nc.path ?: "").setBody(event))
   }
 
-  override fun getParameters(): MutableList<NotificationParameter> {
-    return mutableListOf(NotificationParameter().apply {
-      name = "path"
-      label = "URL path"
-      description = "Additional path to be appended to the HTTP URL when this notification is sent"
-      type = NotificationParameter.ParameterType.string
-      defaultValue = ""
-    })
-  }
+  override fun getParameters() = mutableListOf(NotificationParameter().apply {
+    name = "path"
+    label = "URL path"
+    description = "Additional path to be appended to the HTTP URL when this notification is sent"
+    type = NotificationParameter.ParameterType.string
+    defaultValue = ""
+  })
 
   private fun MutableMap<String, Any>.asNotificationConfig() = mapper.convertValue<NotificationConfig>(this)
 }
