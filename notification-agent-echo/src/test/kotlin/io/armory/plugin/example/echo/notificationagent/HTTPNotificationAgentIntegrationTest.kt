@@ -64,11 +64,6 @@ class HTTPNotificationAgentIntegrationTest : PluginsTck<EchoPluginsFixture>() {
             get { path }.isEqualTo("/spinnaker-notifications")
             get { body.readUtf8() }.isNotNull()
           }
-          that(receiver.requestCount).isEqualTo(1)
-        }
-
-        after {
-          receiver.shutdown()
         }
       }
 

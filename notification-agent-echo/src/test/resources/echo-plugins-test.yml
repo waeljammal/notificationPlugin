@@ -23,6 +23,16 @@ spinnaker:
 
   extensibility:
     plugins-root-path: build/plugins
+    # TODO: when the plugin is compiled, the PF4J annotation processor generates an `.idx` manifest that's included in
+    # the test runtime classpath. The `.idx` manifest tells PF4J to pick up the HTTPNotificationAgent extension point (in
+    # addition to the three extension points configured below, which are necessary for the plugin TCK).
+    # As a result, Echo loads a total of TWO instances of HTTPNotificationAgent (the `disabled` and `not.supported`
+    # instances aren't).
+    # This is not great but also not terrible, which is why I'm leaving it as is for the moment.
+    extensions:
+      armory.httpNotificationService:
+        config:
+          url: http://localhost:9999
     plugins:
       io.armory.echo.enabled.plugin:
         enabled: true

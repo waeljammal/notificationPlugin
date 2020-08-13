@@ -30,6 +30,7 @@ dependencies {
   compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
   compileOnly "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
   compileOnly "com.netflix.spinnaker.echo:echo-api:${echoVersion}"
+  kapt "org.pf4j:pf4j:${pf4jVersion}"
 
   implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
 
