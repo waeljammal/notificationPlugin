@@ -1,12 +1,16 @@
 package io.armory.plugin.example.echo.notificationagent
 
+import com.fasterxml.jackson.module.kotlin.readValue
 import com.netflix.spinnaker.echo.api.events.Event
 import com.netflix.spinnaker.echo.api.events.Metadata
+import com.netflix.spinnaker.echo.api.events.NotificationAgent
+import com.netflix.spinnaker.echo.api.events.NotificationParameter
 import com.netflix.spinnaker.kork.plugins.tck.PluginsTck
 import com.netflix.spinnaker.kork.plugins.tck.serviceFixture
 import com.squareup.okhttp.mockwebserver.MockResponse
 import dev.minutest.rootContext
 import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import strikt.api.expect
 import strikt.assertions.isEqualTo
@@ -67,6 +71,24 @@ class HTTPNotificationAgentIntegrationTest : PluginsTck<EchoPluginsFixture>() {
           receiver.shutdown()
         }
       }
+
+      test("agent metadata (used for UI generation) is included in /notifications/metadata response") {
+        val response = mockMvc.get("/notifications/metadata").andReturn().response
+
+        expect {
+          that(response.status).isEqualTo(200)
+          that(mapper.readValue<List<NotificationMetadata>>(response.contentAsByteArray)) {
+            get { find { it.notificationType == "http" } }
+              .isNotNull()
+              .and {
+                get { uiType }.isEqualTo("BASIC")
+                get { parameters.size }.isEqualTo(1)
+              }
+          }
+        }
+      }
     }
   }
+
+  data class NotificationMetadata(val parameters: List<NotificationParameter>, val notificationType: String, val uiType: String)
 }
