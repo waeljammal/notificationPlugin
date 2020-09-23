@@ -8,6 +8,7 @@ buildscript {
 }
 
 apply plugin: "io.spinnaker.plugin.service-extension"
+apply plugin: "io.spinnaker.plugin.compatibility-test-runner"
 apply plugin: "kotlin"
 apply plugin: "kotlin-kapt"
 apply plugin: "kotlin-spring"
@@ -19,6 +20,7 @@ repositories {
   mavenCentral()
   jcenter()
   maven { url "http://dl.bintray.com/spinnaker/spinnaker/" }
+  maven { url "https://spinnaker-releases.bintray.com/jars" }
 }
 
 spinnakerPlugin {
@@ -34,11 +36,12 @@ dependencies {
 
   implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"
 
-  testImplementation "com.netflix.spinnaker.echo:echo-web:${echoVersion}"
-  testImplementation "com.netflix.spinnaker.echo:echo-api:${echoVersion}"
-  testImplementation "com.netflix.spinnaker.echo:echo-core:${echoVersion}"
-  testImplementation "com.netflix.spinnaker.kork:kork-plugins-tck:${korkVersion}"
-  testImplementation "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
+  testImplementation(platform("com.netflix.spinnaker.echo:echo-bom:${echoVersion}"))
+  testImplementation "com.netflix.spinnaker.echo:echo-web"
+  testImplementation "com.netflix.spinnaker.echo:echo-api"
+  testImplementation "com.netflix.spinnaker.echo:echo-core"
+  testImplementation "com.netflix.spinnaker.kork:kork-plugins-tck"
+  testImplementation "com.netflix.spinnaker.kork:kork-plugins"
 
   testImplementation "io.strikt:strikt-core:0.22.1"
   testImplementation "dev.minutest:minutest:1.10.0"
