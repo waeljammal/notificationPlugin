@@ -36,22 +36,13 @@ spinnaker:
     plugins:
       io.armory.echo.enabled.plugin:
         enabled: true
-        extensions:
-          armory.httpNotificationService:
-            enabled: true
-            config:
-              url: http://localhost:9999
+        config:
+          url: http://localhost:9999
       io.armory.echo.disabled.plugin:
         enabled: false
-        extensions:
-          armory.httpNotificationService:
-            enabled: false
-            config:
-              url: http://localhost:9999
+        config:
+          url: http://localhost:9999
       io.armory.echo.version.not.supported.plugin:
         enabled: true
-        extensions:
-          armory.httpNotificationService:
-            enabled: false
-            config:
-              url: http://localhost:9999
+        config:
+          url: http://localhost:9999

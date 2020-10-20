@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.post
 import strikt.api.expect
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNotNull
+import java.util.concurrent.TimeUnit
 
 class HTTPNotificationAgentIntegrationTest : PluginsTck<EchoPluginsFixture>() {
   fun tests() = rootContext<EchoPluginsFixture> {
@@ -60,7 +61,7 @@ class HTTPNotificationAgentIntegrationTest : PluginsTck<EchoPluginsFixture>() {
         expect {
           that(response.status).isEqualTo(200)
 
-          that(receiver.takeRequest()) {
+          that(receiver.takeRequest(5, TimeUnit.SECONDS)) {
             get { path }.isEqualTo("/spinnaker-notifications")
             get { body.readUtf8() }.isNotNull()
           }
