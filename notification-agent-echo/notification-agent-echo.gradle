@@ -3,6 +3,7 @@ buildscript {
     mavenCentral()
   }
   dependencies {
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlinVersion"
   }
 }
@@ -17,7 +18,6 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-  mavenCentral()
   jcenter()
   maven { url "http://dl.bintray.com/spinnaker/spinnaker/" }
   maven { url "https://spinnaker-releases.bintray.com/jars" }
@@ -29,7 +29,7 @@ spinnakerPlugin {
 }
 
 dependencies {
-  compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
+  compileOnly "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
   compileOnly "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
   compileOnly "com.netflix.spinnaker.echo:echo-api:${echoVersion}"
   kapt "org.pf4j:pf4j:${pf4jVersion}"
@@ -40,13 +40,13 @@ dependencies {
   testImplementation "com.netflix.spinnaker.echo:echo-web"
   testImplementation "com.netflix.spinnaker.echo:echo-api"
   testImplementation "com.netflix.spinnaker.echo:echo-core"
-  testImplementation "com.netflix.spinnaker.kork:kork-plugins-tck"
-  testImplementation "com.netflix.spinnaker.kork:kork-plugins"
+  testImplementation "com.netflix.spinnaker.kork:kork-plugins-tck:${korkVersion}"
+  testImplementation "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
 
   testImplementation "io.strikt:strikt-core:0.22.1"
   testImplementation "dev.minutest:minutest:1.10.0"
   testImplementation "javax.servlet:javax.servlet-api:4.0.1"
-  testImplementation "com.squareup.okhttp:mockwebserver:2.7.0"
+  testImplementation "com.squareup.okhttp:mockwebserver:2.7.5"
   testImplementation "org.springframework.boot:spring-boot-starter-test:2.3.1.RELEASE"
 
   testRuntime "org.junit.jupiter:junit-jupiter-engine:5.4.0"
@@ -56,14 +56,14 @@ dependencies {
 compileKotlin {
   kotlinOptions {
     languageVersion = "1.3"
-    jvmTarget = "1.8"
+    jvmTarget = "11"
   }
 }
 
 compileTestKotlin {
   kotlinOptions {
     languageVersion = "1.3"
-    jvmTarget = "1.8"
+    jvmTarget = "11"
   }
 }
 
