@@ -3,27 +3,26 @@ package io.armory.plugin.example.echo.notificationagent
 import com.fasterxml.jackson.module.kotlin.readValue
 import com.netflix.spinnaker.echo.api.events.Event
 import com.netflix.spinnaker.echo.api.events.Metadata
-import com.netflix.spinnaker.echo.api.events.NotificationAgent
 import com.netflix.spinnaker.echo.api.events.NotificationParameter
-import com.netflix.spinnaker.kork.plugins.tck.PluginsTck
-import com.netflix.spinnaker.kork.plugins.tck.serviceFixture
 import com.squareup.okhttp.mockwebserver.MockResponse
+import dev.minutest.junit.JUnit5Minutests
 import dev.minutest.rootContext
 import org.springframework.http.MediaType
+import org.springframework.test.context.TestContextManager
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import strikt.api.expect
 import strikt.assertions.isEqualTo
 import strikt.assertions.isNotNull
 
-class HTTPNotificationAgentIntegrationTest : PluginsTck<EchoPluginsFixture>() {
+class HTTPNotificationAgentIntegrationTest : JUnit5Minutests {
   fun tests() = rootContext<EchoPluginsFixture> {
     context("an echo integration test environment") {
-      serviceFixture {
-        EchoPluginsFixture()
+      fixture {
+        EchoPluginsFixture().also {
+          TestContextManager(EchoPluginsFixture::class.java).prepareTestInstance(it)
+        }
       }
-
-      defaultPluginTests()
 
       test("agent handles an notification event, passes event to statically configured endpoint and dynamically configured path") {
         receiver.start(RECEIVER_PORT)
