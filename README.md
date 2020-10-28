@@ -37,11 +37,9 @@ spinnaker:
     plugins:
       Armory.NotificationAgent:
         enabled: true
-        extensions:
-          armory.httpNotificationService:
-            enabled: true
-            config:
-              url: <fill-me-in>
+        armory.httpNotificationService:
+          config:
+            url: <fill-me-in>
     repositories:
       examplePluginRepository:
         url: https://raw.githubusercontent.com/spinnaker-plugin-examples/examplePluginRepository/master/repositories.json
