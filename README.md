@@ -1,6 +1,4 @@
 ![CI](https://github.com/spinnaker-plugin-examples/notificationPlugin/workflows/CI/badge.svg)
-![Latest Kork](https://github.com/spinnaker-plugin-examples/notificationPlugin/workflows/Latest%20Kork/badge.svg?branch=master)
-![Latest Echo](https://github.com/spinnaker-plugin-examples/notificationPlugin/workflows/Latest%20Echo/badge.svg?branch=master)
 
 ## `NotificationAgent` Extension Point
 
