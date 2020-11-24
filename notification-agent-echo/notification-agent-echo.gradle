@@ -18,7 +18,7 @@ targetCompatibility = 1.8
 repositories {
   mavenCentral()
   jcenter()
-  maven { url "http://dl.bintray.com/spinnaker/spinnaker/" }
+  maven { url "https://spinnaker-releases.bintray.com/jars" }
   maven { url "https://spinnaker-releases.bintray.com/jars" }
 }
 
@@ -30,7 +30,9 @@ spinnakerPlugin {
 dependencies {
   compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}"
   compileOnly "com.netflix.spinnaker.kork:kork-plugins:${korkVersion}"
+  compileOnly "com.netflix.spinnaker.kork:kork-plugins-spring-api:${korkVersion}"
   compileOnly "com.netflix.spinnaker.echo:echo-api:${echoVersion}"
+  compileOnly "com.squareup.okhttp3:okhttp:4.9.0"
   kapt "org.pf4j:pf4j:${pf4jVersion}"
 
   implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8"

@@ -6,25 +6,30 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.netflix.spinnaker.echo.api.events.Event
 import com.netflix.spinnaker.echo.api.events.NotificationAgent
 import com.netflix.spinnaker.echo.api.events.NotificationParameter
-import com.netflix.spinnaker.kork.plugins.api.PluginSdks
 import com.netflix.spinnaker.kork.plugins.api.httpclient.HttpClient
-import com.netflix.spinnaker.kork.plugins.api.httpclient.HttpClientConfig
 import com.netflix.spinnaker.kork.plugins.api.httpclient.Request
-import org.pf4j.Extension
-import org.pf4j.Plugin
+import com.netflix.spinnaker.kork.plugins.api.spring.PrivilegedSpringPlugin
+import com.netflix.spinnaker.kork.plugins.sdk.httpclient.Ok3HttpClient
+import okhttp3.OkHttpClient
 import org.pf4j.PluginWrapper
+import org.springframework.beans.factory.support.BeanDefinitionRegistry
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 
-class HTTPNotificationAgentPlugin(wrapper: PluginWrapper) : Plugin(wrapper)
+class HTTPNotificationAgentPlugin(wrapper: PluginWrapper) : PrivilegedSpringPlugin(wrapper) {
+  override fun registerBeanDefinitions(registry: BeanDefinitionRegistry) {
+    registerBean(beanDefinitionFor(HTTPNotificationAgent::class.java), registry)
+    registerBean(beanDefinitionFor(HTTPNotificationConfig::class.java), registry)
+  }
+}
 
-@Extension
-class HTTPNotificationAgent(config: HTTPNotificationConfig, pluginSdks: PluginSdks) : NotificationAgent {
+@EnableConfigurationProperties
+class HTTPNotificationAgent(config: HTTPNotificationConfig) : NotificationAgent {
   private val client: HttpClient
   private val AGENT_NAME = "http-notification-agent"
   private val mapper = jacksonObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
 
   init {
-    pluginSdks.http().configure(AGENT_NAME, config.url, HttpClientConfig())
-    client = pluginSdks.http().get(AGENT_NAME)
+    client = Ok3HttpClient("http-notification-agent", config.url, OkHttpClient(), mapper)
   }
 
   override fun getNotificationType() = "http"

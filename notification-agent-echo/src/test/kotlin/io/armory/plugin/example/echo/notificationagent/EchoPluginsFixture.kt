@@ -37,9 +37,9 @@ class EchoPluginsFixture {
   final val receiver = MockWebServer()
 
   init {
-    val pluginId = "Armory.NotificationPlugin"
+    val pluginId = "Armory.NotificationAgent"
     val plugins = File("build/plugins").also {
-      it.delete()
+      it.deleteRecursively()
       it.mkdir()
     }
     PluginJar.Builder(plugins.toPath().resolve("$pluginId.jar"), pluginId)

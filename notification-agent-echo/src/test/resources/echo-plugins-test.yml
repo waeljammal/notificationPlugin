@@ -24,8 +24,8 @@ spinnaker:
   extensibility:
     plugins-root-path: build/plugins
     plugins:
-      Armory.NotificationPlugin:
+      Armory.NotificationAgent:
         enabled: true
-        armory.httpNotificationService:
-          config:
-            url: http://localhost:9999
+
+notification-agent:
+  url: http://localhost:9999

@@ -1,6 +1,8 @@
 package io.armory.plugin.example.echo.notificationagent
 
-import com.netflix.spinnaker.kork.plugins.api.PluginConfiguration
+import org.springframework.boot.context.properties.ConfigurationProperties
 
-@PluginConfiguration("armory.httpNotificationService")
-data class HTTPNotificationConfig(val url: String)
+@ConfigurationProperties("notification-agent")
+class HTTPNotificationConfig {
+  lateinit var url: String
+}
