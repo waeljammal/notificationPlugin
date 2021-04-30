@@ -31,7 +31,8 @@ class HTTPNotificationAgent(config: HTTPNotificationConfig, pluginSdks: PluginSd
 
   override fun sendNotifications(notification: MutableMap<String, Any>, application: String, event: Event, status: String) {
     val nc = notification.asNotificationConfig()
-    client.post(Request(AGENT_NAME, nc.path ?: "").setBody(event))
+    val data = mapOf("event" to event, "body" to nc.body)
+    client.post(Request(AGENT_NAME, nc.path ?: "").setBody(data))
   }
 
   override fun getParameters() = mutableListOf(NotificationParameter().apply {
@@ -40,9 +41,15 @@ class HTTPNotificationAgent(config: HTTPNotificationConfig, pluginSdks: PluginSd
     description = "Additional path to be appended to the HTTP URL when this notification is sent"
     type = NotificationParameter.ParameterType.string
     defaultValue = ""
+  }, NotificationParameter().apply {
+    name = "body"
+    label = "Request Body"
+    description = "Additional data to be sent"
+    type = NotificationParameter.ParameterType.string
+    defaultValue = ""
   })
 
   private fun MutableMap<String, Any>.asNotificationConfig() = mapper.convertValue<NotificationConfig>(this)
 }
 
-data class NotificationConfig(val path: String?)
+data class NotificationConfig(val path: String?, val body: String?)
