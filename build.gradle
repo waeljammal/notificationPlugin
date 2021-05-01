@@ -33,5 +33,5 @@ subprojects {
 }
 
 String normalizedVersion() {
-  return "v0.0.12"
+  return "v0.0.13"
 }
